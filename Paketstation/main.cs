@@ -10,6 +10,7 @@ namespace Paketstation
     {
         static void Main(string[] args)
         {
+            Terminal t = new Terminal();
         }
     }
 }

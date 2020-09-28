@@ -21,17 +21,32 @@ namespace Paketstation
         }
         #endregion
         #region Methods
-        public Paket SchliessfachOeffnen(Guid paketnummer)
-        {
 
-            return Schliessfaecher.First(x => x.Paket.Paketnummer.CompareTo(paketnummer) == 0).Paket;
+        public int PaketEinliefern(Paket paket)
+        {
+            int pos = GetFreiesSchliessfach();
+            if (pos != -1)
+            {
+                Schliessfaecher[pos].Paket = paket;
+            }
+            return pos;
         }
 
-        public bool SchliessfachSchliessen(Paket paket)
+        public Paket PaketHolen(string paketnummer)
+        {
+            int pos = GetSchliessfachByPaketnummer(paketnummer);
+            if(pos != -1)
+            {
+                return Schliessfaecher[pos].Oeffnen();
+            }
+            return null;
+        }
+
+        private int GetSchliessfachByPaketnummer(string paketnummer)
         {
             for (int i = 0; i < Schliessfaecher.Length; i++)
             {
-                if (Schliessfaecher[i].Paket.Paketnummer.CompareTo(paketnummer) == 0)
+                if (Schliessfaecher[i].Paket.Paketnummer == paketnummer)
                 {
                     return i;
                 }
@@ -39,25 +54,11 @@ namespace Paketstation
             return -1;
         }
 
-
-
-        private int FindeSchliessfachMitPaket(Guid paketnummer)
+        private int GetFreiesSchliessfach()
         {
             for (int i = 0; i < Schliessfaecher.Length; i++)
             {
-                if (Schliessfaecher[i].Paket.Paketnummer.CompareTo(paketnummer) == 0)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        private int SchliessfachFrei()
-        {
-            for (int i = 0; i < Schliessfaecher.Length; i++)
-            {
-                if(Schliessfaecher[i] == null)
+                if (Schliessfaecher[i] == null)
                 {
                     return i;
                 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Paketstation.View
+namespace Paketstation
 {
     public class Terminal
     {
@@ -13,8 +13,11 @@ namespace Paketstation.View
         #region Properties
         #endregion
         #region Constructors
+        public Terminal()
+        {
+        }
         #endregion
-        #region Methods
+        #region Methods 
         #endregion
     }
 }

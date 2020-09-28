@@ -17,10 +17,16 @@ namespace Paketstation
         #region Constructors
         public Schliessfach()
         {
-            Paket = new Paket();
+            Paket = null;
         }
         #endregion
         #region Methods
+        public Paket Oeffnen()
+        {
+            Paket p = Paket;
+            Paket = null;
+            return p;
+        }
         #endregion
     }
 }
