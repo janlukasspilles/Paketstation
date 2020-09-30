@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="main.cs" />
+    <Compile Include="Model\Kunde.cs" />
     <Compile Include="Model\Paket.cs" />
     <Compile Include="Model\Paketstation.cs" />
     <Compile Include="Model\Schliessfach.cs" />
