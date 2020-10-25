@@ -9,44 +9,53 @@ namespace Paketstation
     public class Paketstation
     {
         #region Attributes
-        private Schliessfach[] _schliessfaecher;
+        private Schliessfach[] _faecher;
+        private Terminal _userInterface;
+        private string _standort;
+        private Guid _id;
         #endregion
         #region Properties
-        public Schliessfach[] Schliessfaecher { get => _schliessfaecher; set => _schliessfaecher = value; }
+        public Schliessfach[] Faecher { get => _faecher; set => _faecher = value; }
+        public Terminal UserInterface { get => _userInterface; set => _userInterface = value; }
+        public string Standort { get => _standort; set => _standort = value; }
+        public Guid Id { get => _id; set => _id = value; }
         #endregion
         #region Constructors
         public Paketstation()
         {
-            Schliessfaecher = new Schliessfach[9];
+            Faecher = new Schliessfach[9];
         }
         #endregion
         #region Methods
-
-        public int PaketEinliefern(Paket paket)
+        public Paketschein PaketAnnehmen(Paket paket, Guid kundennummer)
         {
             int pos = GetFreiesSchliessfach();
             if (pos != -1)
             {
-                Schliessfaecher[pos].Paket = paket;
+                Faecher[pos].Paket = paket;
+                return new Paketschein(kundennummer, paket.Paketnummer);
             }
-            return pos;
+            else
+            {
+                return null;
+            }            
         }
 
-        public Paket PaketHolen(string paketnummer)
+        public Paket PaketAusgeben(Paketschein paketschein)
         {
-            int pos = GetSchliessfachByPaketnummer(paketnummer);
+            int pos = PaketFinden(paketschein.Paketnummer);
             if(pos != -1)
             {
-                return Schliessfaecher[pos].Oeffnen();
+                return Faecher[pos].PaketAusgeben();
             }
             return null;
         }
 
-        private int GetSchliessfachByPaketnummer(string paketnummer)
+        private int PaketFinden(Guid paketnummer)
         {
-            for (int i = 0; i < Schliessfaecher.Length; i++)
+            for (int i = 0; i < Faecher.Length; i++)
             {
-                if (Schliessfaecher[i].Paket.Paketnummer == paketnummer)
+                if (Faecher[i].Paket.Paketnummer.ToString() == paketnummer.ToString())
                 {
                     return i;
                 }
@@ -56,9 +65,9 @@ namespace Paketstation
 
         private int GetFreiesSchliessfach()
         {
-            for (int i = 0; i < Schliessfaecher.Length; i++)
+            for (int i = 0; i < Faecher.Length; i++)
             {
-                if (Schliessfaecher[i] == null)
+                if (Faecher[i] == null)
                 {
                     return i;
                 }

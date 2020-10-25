@@ -10,9 +10,11 @@ namespace Paketstation
     {
         #region Attributes
         private Paket _paket;
+        private bool _status;
         #endregion
         #region Properties
         public Paket Paket { get => _paket; set => _paket = value; }
+        public bool Status { get => _status; set => _status = value; }
         #endregion
         #region Constructors
         public Schliessfach()
@@ -21,7 +23,7 @@ namespace Paketstation
         }
         #endregion
         #region Methods
-        public Paket Oeffnen()
+        public Paket PaketAusgeben()
         {
             Paket p = Paket;
             Paket = null;

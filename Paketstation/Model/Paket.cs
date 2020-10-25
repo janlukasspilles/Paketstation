@@ -9,31 +9,34 @@ namespace Paketstation
     public class Paket
     {
         #region Attributes
-        private string _paketnummer;
+        private Guid _paketnummer;
         private string _inhalt;
+        private int _gewicht;
+        private string _groesse;
+        private string _empfaenger;
+        private string _absender;
         #endregion
         #region Properties
-        public string Paketnummer { get => _paketnummer; set => _paketnummer=value; }
+        public Guid Paketnummer { get => _paketnummer; set => _paketnummer=value; }
         public string Inhalt { get => _inhalt; set => _inhalt = value; }
+        public int Gewicht { get => Gewicht; set => Gewicht = value; }
+        public string Groesse { get => _groesse; set => _groesse = value; }
+        public string Empfaenger { get => _empfaenger; set => _empfaenger = value; }
+        public string Absender { get => _absender; set => _absender = value; }
         #endregion
         #region Constructors
         public Paket()
         {
-            Paketnummer = new Guid().ToString();
+            Paketnummer = Guid.NewGuid();
         }
 
         public Paket(string inhalt)
         {
-            Paketnummer = new Guid().ToString();
+            Paketnummer = Guid.NewGuid();
             Inhalt = inhalt;
         }
         #endregion
         #region Methods
-        public void Zuweisen(Paket paket)
-        {
-            Paketnummer = paket.Paketnummer;
-            Inhalt = paket.Inhalt;
-        }
         #endregion
     }
 }
