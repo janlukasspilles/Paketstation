@@ -41,9 +41,9 @@ namespace Paketstation.Controller
         {
             Kunde.PaketAbholen(Station.PaketAusgeben(Kunde.Paketscheine.Dequeue()));
         }
-        private void KundeListeEigenePakete()
+        private void KundeListeEigenePaket()
         {
-            //wtf
+            Station.PaketeListen(Kunde.Name);
         }
         #endregion
     }

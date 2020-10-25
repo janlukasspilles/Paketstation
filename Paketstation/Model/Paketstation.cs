@@ -38,17 +38,45 @@ namespace Paketstation
             else
             {
                 return null;
-            }            
+            }
         }
 
         public Paket PaketAusgeben(Paketschein paketschein)
         {
             int pos = PaketFinden(paketschein.Paketnummer);
-            if(pos != -1)
+            if (pos != -1)
             {
                 return Faecher[pos].PaketAusgeben();
             }
             return null;
+        }
+
+        public Guid[] PaketeListen(string kundenname)
+        {
+            Guid[] res = new Guid[AnzahlPaketeFuerKunden(kundenname)];
+            int zaehler = 0;
+            for (int i = 0; i < Faecher.Length; i++)
+            {
+                if (Faecher[i].Paket.Empfaenger == kundenname)
+                {
+                    //Geht das???
+                    res[zaehler++] = Faecher[i].Paket.Paketnummer;
+                }
+            }
+            return res;
+        }
+
+        private int AnzahlPaketeFuerKunden(string kundenname)
+        {
+            int res = 0;
+            for (int i = 0; i < Faecher.Length; i++)
+            {
+                if (Faecher[i].Paket.Empfaenger == kundenname)
+                {
+                    res++;
+                }
+            }
+            return res;
         }
 
         private int PaketFinden(Guid paketnummer)
