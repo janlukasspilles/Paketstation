@@ -27,23 +27,22 @@ namespace Paketstation
         }
         #endregion
         #region Methods
-        public Paketschein PaketAnnehmen(Paket paket, Guid kundennummer)
+        public void PaketAnnehmen(Paket paket)
         {
             int pos = GetFreiesSchliessfach();
             if (pos != -1)
             {
-                Faecher[pos].Paket = paket;
-                return new Paketschein(kundennummer, paket.Paketnummer);
+                Faecher[pos].Paket = paket;                
             }
             else
             {
-                return null;
+                //Exception?
             }
         }
 
-        public Paket PaketAusgeben(Paketschein paketschein)
+        public Paket PaketAusgeben(Guid paketnummer)
         {
-            int pos = PaketFinden(paketschein.Paketnummer);
+            int pos = PaketFinden(paketnummer);
             if (pos != -1)
             {
                 return Faecher[pos].PaketAusgeben();
@@ -51,13 +50,13 @@ namespace Paketstation
             return null;
         }
 
-        public Guid[] PaketeListen(string kundenname)
+        public Guid[] PaketeListen(Guid kundennummer)
         {
-            Guid[] res = new Guid[AnzahlPaketeFuerKunden(kundenname)];
+            Guid[] res = new Guid[AnzahlPaketeFuerKunden(kundennummer)];
             int zaehler = 0;
             for (int i = 0; i < Faecher.Length; i++)
             {
-                if (Faecher[i].Paket.Empfaenger == kundenname)
+                if (Faecher[i].Paket.Empfaenger == kundennummer)
                 {
                     //Geht das???
                     res[zaehler++] = Faecher[i].Paket.Paketnummer;
@@ -66,12 +65,12 @@ namespace Paketstation
             return res;
         }
 
-        private int AnzahlPaketeFuerKunden(string kundenname)
+        private int AnzahlPaketeFuerKunden(Guid kundennummer)
         {
             int res = 0;
             for (int i = 0; i < Faecher.Length; i++)
             {
-                if (Faecher[i].Paket.Empfaenger == kundenname)
+                if (Faecher[i].Paket.Empfaenger == kundennummer)
                 {
                     res++;
                 }

@@ -48,7 +48,6 @@
     <Compile Include="Model\Kunde.cs" />
     <Compile Include="Model\KundeKannNichtsMehrTragenException.cs" />
     <Compile Include="Model\Paket.cs" />
-    <Compile Include="Model\Paketschein.cs" />
     <Compile Include="Model\Paketstation.cs" />
     <Compile Include="Model\Schliessfach.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
