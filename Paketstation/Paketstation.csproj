@@ -52,6 +52,7 @@
     <Compile Include="Model\Schliessfach.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\Terminal.cs" />
+    <Compile Include="View\UserInterface.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

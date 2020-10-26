@@ -50,13 +50,13 @@ namespace Paketstation
             return null;
         }
 
-        public Guid[] PaketeListen(Guid kundennummer)
+        public Guid[] PaketeListen(string kundenname)
         {
-            Guid[] res = new Guid[AnzahlPaketeFuerKunden(kundennummer)];
+            Guid[] res = new Guid[AnzahlPaketeFuerKunden(kundenname)];
             int zaehler = 0;
             for (int i = 0; i < Faecher.Length; i++)
             {
-                if (Faecher[i].Paket.Empfaenger == kundennummer)
+                if (Faecher[i].Paket.Empfaenger == kundenname)
                 {
                     //Geht das???
                     res[zaehler++] = Faecher[i].Paket.Paketnummer;
@@ -65,12 +65,12 @@ namespace Paketstation
             return res;
         }
 
-        private int AnzahlPaketeFuerKunden(Guid kundennummer)
+        private int AnzahlPaketeFuerKunden(string kundenname)
         {
             int res = 0;
             for (int i = 0; i < Faecher.Length; i++)
             {
-                if (Faecher[i].Paket.Empfaenger == kundennummer)
+                if (Faecher[i].Paket.Empfaenger == kundenname)
                 {
                     res++;
                 }

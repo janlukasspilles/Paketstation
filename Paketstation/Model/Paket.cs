@@ -13,16 +13,16 @@ namespace Paketstation
         private string _inhalt;
         private int _gewicht;
         private string _groesse;
-        private Guid _empfaenger;
-        private Guid _absender;
+        private string _empfaenger;
+        private string _absender;
         #endregion
         #region Properties
         public Guid Paketnummer { get => _paketnummer; set => _paketnummer=value; }
         public string Inhalt { get => _inhalt; set => _inhalt = value; }
         public int Gewicht { get => Gewicht; set => Gewicht = value; }
         public string Groesse { get => _groesse; set => _groesse = value; }
-        public Guid Empfaenger { get => _empfaenger; set => _empfaenger = value; }
-        public Guid Absender { get => _absender; set => _absender = value; }
+        public string Empfaenger { get => _empfaenger; set => _empfaenger = value; }
+        public string Absender { get => _absender; set => _absender = value; }
         #endregion
         #region Constructors
         public Paket()
@@ -30,14 +30,14 @@ namespace Paketstation
             Paketnummer = Guid.NewGuid();
         }
 
-        public Paket(Guid empfaenger, Guid absender)
+        public Paket(string empfaenger, string absender)
         {
             Paketnummer = Guid.NewGuid();
             Empfaenger = empfaenger;
             Absender = absender;
         }
 
-        public Paket(Guid empfaenger, Guid absender, string inhalt)
+        public Paket(string empfaenger, string absender, string inhalt)
         {
             Paketnummer = Guid.NewGuid();
             Empfaenger = empfaenger;

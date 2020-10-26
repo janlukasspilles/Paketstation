@@ -54,6 +54,19 @@ namespace Paketstation.Model
                 throw new KundeKannNichtsMehrTragenException();
             Paket1 = p;
         }
+        public void PaketVorbereiten(string inhalt, string empfaenger)
+        {
+            if(Paket1 == null)
+            {
+                Paket1 = new Paket(empfaenger, Name, inhalt);
+            }
+        }
+        public Paket PaketOeffnen()
+        {
+            Paket res = Paket1;
+            Paket1 = null;
+            return res;
+        }
         #endregion
     }
 }
