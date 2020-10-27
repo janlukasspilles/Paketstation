@@ -24,14 +24,12 @@ namespace Paketstation.Model
         public Kunde()
         {
             Kundennummer = Guid.NewGuid();
-            Paket1 = new Paket();
         }
         public Kunde(string name, string adresse)
         {
             Name = name;
             Adresse = adresse;
             Kundennummer = Guid.NewGuid();
-            Paket1 = new Paket();
         }
         public Kunde(Paket p, string name, string adresse)
         {

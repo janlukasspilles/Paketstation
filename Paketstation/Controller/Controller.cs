@@ -37,7 +37,7 @@ namespace Paketstation
             do
             {
                 int selectedMainMenuPoint = IO.SelectableMenu(string.Join(";", Kunden.Select(x => x.Name)) + ";Splashinfo;" + "Schließen", "Wählen Sie einen Kunden aus:");
-                if (selectedMainMenuPoint > Kunden.Length)
+                if (selectedMainMenuPoint >= Kunden.Length)
                 {
                     if (selectedMainMenuPoint == Kunden.Length)
                     {
@@ -53,20 +53,20 @@ namespace Paketstation
                     bool KundeIstAusgewaehlt = true;
                     do
                     {
-                        int ausgewaehlterGeschaeftsprozess = IO.SelectableMenu("Paket einliefern;Paket abholen;Eigene Pakete Listen;Paket öffnen;Zurück", "Wählen Sie eine Operation aus:");
+                        int ausgewaehlterGeschaeftsprozess = IO.SelectableMenu("Paket einliefern;Paket abholen;Eigene Pakete Listen;Paket öffnen;Zurück", $"Wählen Sie eine Operation für den Kunden {Kunden[selectedMainMenuPoint].Name} aus:");
                         switch (ausgewaehlterGeschaeftsprozess)
                         {
                             case 0:
-                                KundeLiefertPaketEin(Kunden[ausgewaehlterGeschaeftsprozess]);
+                                KundeLiefertPaketEin(Kunden[selectedMainMenuPoint]);
                                 break;
                             case 1:
-                                KundeHoltPaketAb(Kunden[ausgewaehlterGeschaeftsprozess]);
+                                KundeHoltPaketAb(Kunden[selectedMainMenuPoint]);
                                 break;
                             case 2:
-                                KundeListeEigenePaket(Kunden[ausgewaehlterGeschaeftsprozess]);
+                                KundeListeEigenePaket(Kunden[selectedMainMenuPoint]);
                                 break;
                             case 3:
-                                KundePaketOeffnen(Kunden[ausgewaehlterGeschaeftsprozess]);
+                                KundePaketOeffnen(Kunden[selectedMainMenuPoint]);
                                 break;
                             default:
                                 KundeIstAusgewaehlt = false;
@@ -85,8 +85,7 @@ namespace Paketstation
 
         private void KundeHoltPaketAb(Kunde k)
         {
-
-            k.PaketAbholen(Station.PaketAusgeben(k.Kundennummer));
+            k.PaketAbholen(Station.PaketAusgeben(IO.AusgabePaket()));
         }
         private void KundeListeEigenePaket(Kunde k)
         {
@@ -95,7 +94,7 @@ namespace Paketstation
         private void KundePaketOeffnen(Kunde k)
         {
             if (k.Paket1 != null)
-                k.PaketOeffnen();
+                IO.PaketOeffnen(k.PaketOeffnen());
             else
                 IO.MeldungKeinPaket();
             

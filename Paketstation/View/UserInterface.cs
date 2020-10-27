@@ -33,7 +33,7 @@ namespace Paketstation.View
             return new Paket(empfaenger, name, inhalt);
         }
 
-        public void PaketeListen(Guid[] paketnummern)
+        public void PaketeListen(int[] paketnummern)
         {
             Console.Clear();
             if (paketnummern.Length == 0)
@@ -63,6 +63,13 @@ namespace Paketstation.View
             Console.Clear();
             Console.WriteLine("Sie besitzen kein Paket zum Öffnen!");
             Console.ReadKey(true);
+        }
+
+        public int AusgabePaket()
+        {
+            Console.Clear();
+            Console.WriteLine("Bitte geben Sie die Id des auszugebenen Pakets an.");            
+            return Convert.ToInt32(Console.ReadLine());
         }
 
         public void Splashinfo()

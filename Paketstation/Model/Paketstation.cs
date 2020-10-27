@@ -13,6 +13,7 @@ namespace Paketstation
         private Terminal _userInterface;
         private string _standort;
         private Guid _id;
+        private int _globalIdCounter;
         #endregion
         #region Properties
         public Schliessfach[] Faecher { get => _faecher; set => _faecher = value; }
@@ -28,6 +29,7 @@ namespace Paketstation
             {
                 Faecher[zaehler] = new Schliessfach();
             }
+            _globalIdCounter = 0;
         }
         #endregion
         #region Methods
@@ -36,6 +38,7 @@ namespace Paketstation
             int pos = GetFreiesSchliessfach();
             if (pos != -1)
             {
+                paket.Paketnummer = _globalIdCounter++;
                 Faecher[pos].Paket = paket;
             }
             else
@@ -44,7 +47,7 @@ namespace Paketstation
             }
         }
 
-        public Paket PaketAusgeben(Guid paketnummer)
+        public Paket PaketAusgeben(int paketnummer)
         {
             int pos = PaketFinden(paketnummer);
             if (pos != -1)
@@ -54,9 +57,9 @@ namespace Paketstation
             return null;
         }
 
-        public Guid[] PaketeListen(string kundenname)
+        public int[] PaketeListen(string kundenname)
         {
-            Guid[] res = new Guid[AnzahlPaketeFuerKunden(kundenname)];
+            int[] res = new int[AnzahlPaketeFuerKunden(kundenname)];
             int zaehler = 0;
             for (int i = 0; i < Faecher.Length; i++)
             {
@@ -82,7 +85,7 @@ namespace Paketstation
             return res;
         }
 
-        private int PaketFinden(Guid paketnummer)
+        private int PaketFinden(int paketnummer)
         {
             for (int i = 0; i < Faecher.Length; i++)
             {
@@ -98,7 +101,7 @@ namespace Paketstation
         {
             for (int i = 0; i < Faecher.Length; i++)
             {
-                if (Faecher[i] == null)
+                if (Faecher[i].Paket == null)
                 {
                     return i;
                 }
