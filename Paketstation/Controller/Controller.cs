@@ -1,13 +1,8 @@
 ﻿using Paketstation.Model;
 using Paketstation.View;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Paketstation.Controller
+namespace Paketstation
 {
     public class Controller
     {
@@ -41,14 +36,14 @@ namespace Paketstation.Controller
             bool isActive = true;
             do
             {
-                int selectedMainMenuPoint = IO.ShowMainMenu(string.Join(";", Kunden.Select(x => x.Name) + "Kunde hinzufügen" + "Splashinfo" + "Schließen"), "Wählen Sie einen Kunden aus:");
+                int selectedMainMenuPoint = IO.SelectableMenu(string.Join(";", Kunden.Select(x => x.Name)) + ";Splashinfo;" + "Schließen", "Wählen Sie einen Kunden aus:");
                 if (selectedMainMenuPoint > Kunden.Length)
                 {
-                    if (selectedMainMenuPoint == Kunden.Length + 1)
+                    if (selectedMainMenuPoint == Kunden.Length)
                     {
                         IO.Splashinfo();
                     }
-                    else if (selectedMainMenuPoint == Kunden.Length + 2)
+                    else if (selectedMainMenuPoint == Kunden.Length + 1)
                     {
                         isActive = false;
                     }
@@ -58,7 +53,7 @@ namespace Paketstation.Controller
                     bool KundeIstAusgewaehlt = true;
                     do
                     {
-                        int ausgewaehlterGeschaeftsprozess = IO.ShowMainMenu("Paket einliefern;Paket abholen;Eigene Pakete Listen;Paket öffnen;Zurück", "Wählen Sie eine Operation aus:");
+                        int ausgewaehlterGeschaeftsprozess = IO.SelectableMenu("Paket einliefern;Paket abholen;Eigene Pakete Listen;Paket öffnen;Zurück", "Wählen Sie eine Operation aus:");
                         switch (ausgewaehlterGeschaeftsprozess)
                         {
                             case 0:
@@ -84,20 +79,26 @@ namespace Paketstation.Controller
 
         private void KundeLiefertPaketEin(Kunde k)
         {
+            k.Paket1 = IO.PaketEinliefern(k.Name);
             Station.PaketAnnehmen(k.PaketEinliefern());
         }
 
         private void KundeHoltPaketAb(Kunde k)
         {
+
             k.PaketAbholen(Station.PaketAusgeben(k.Kundennummer));
         }
         private void KundeListeEigenePaket(Kunde k)
         {
-            Station.PaketeListen(k.Name);
+            IO.PaketeListen(Station.PaketeListen(k.Name));
         }
         private void KundePaketOeffnen(Kunde k)
         {
-            k.PaketOeffnen();
+            if (k.Paket1 != null)
+                k.PaketOeffnen();
+            else
+                IO.MeldungKeinPaket();
+            
         }
         #endregion
     }

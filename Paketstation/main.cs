@@ -10,7 +10,8 @@ namespace Paketstation
     {
         static void Main(string[] args)
         {
-            Terminal t = new Terminal();
+            Controller c = new Controller();
+            c.run();
         }
     }
 }

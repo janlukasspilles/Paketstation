@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Paketstation.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,49 @@ namespace Paketstation.View
         }
         #region Methods
         #endregion
+        public Paket PaketEinliefern(string name)
+        {
+            Console.Clear();
+            Console.WriteLine("Was wollen Sie versenden?");
+            string inhalt = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("Geben Sie einen Empfänger für Ihr Paket an.");
+            string empfaenger = Console.ReadLine();
+            return new Paket(empfaenger, name, inhalt);
+        }
+
+        public void PaketeListen(Guid[] paketnummern)
+        {
+            Console.Clear();
+            if (paketnummern.Length == 0)
+            {
+                Console.WriteLine("Es befinden sich keine Pakete für Sie in der Station.");
+            }
+            else
+            {
+                for (int zaehler = 0; zaehler < paketnummern.Length; zaehler++)
+                {
+                    Console.WriteLine(paketnummern[zaehler].ToString());
+                }
+            }
+            Console.ReadKey(true);
+        }
+
+        public void PaketOeffnen(Paket p) 
+        {
+            Console.Clear();
+            Console.WriteLine("Absender: " + p.Absender);
+            Console.WriteLine("Inhalt: " + p.Inhalt);
+            Console.ReadKey(true);
+        }
+
+        public void MeldungKeinPaket()
+        {
+            Console.Clear();
+            Console.WriteLine("Sie besitzen kein Paket zum Öffnen!");
+            Console.ReadKey(true);
+        }
+
         public void Splashinfo()
         {
             string[] titles = { "Projektname:", "Version:", "Datum:", "Autor:", "Klasse:" };
@@ -36,7 +80,7 @@ namespace Paketstation.View
             Console.WriteLine("Drücken Sie eine beliebige Taste, um fortzufahren.");
         }
 
-        public int ShowMainMenu(string menuPoints, string headline)
+        public int SelectableMenu(string menuPoints, string headline)
         {
             string[] menu = menuPoints.Split(';');
 

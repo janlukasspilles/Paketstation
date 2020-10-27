@@ -24,6 +24,10 @@ namespace Paketstation
         public Paketstation()
         {
             Faecher = new Schliessfach[9];
+            for (int zaehler = 0; zaehler < Faecher.Length; zaehler++)
+            {
+                Faecher[zaehler] = new Schliessfach();
+            }
         }
         #endregion
         #region Methods
@@ -32,7 +36,7 @@ namespace Paketstation
             int pos = GetFreiesSchliessfach();
             if (pos != -1)
             {
-                Faecher[pos].Paket = paket;                
+                Faecher[pos].Paket = paket;
             }
             else
             {
@@ -56,7 +60,7 @@ namespace Paketstation
             int zaehler = 0;
             for (int i = 0; i < Faecher.Length; i++)
             {
-                if (Faecher[i].Paket.Empfaenger == kundenname)
+                if (Faecher[i].Paket != null && Faecher[i].Paket.Empfaenger == kundenname)
                 {
                     //Geht das???
                     res[zaehler++] = Faecher[i].Paket.Paketnummer;
@@ -70,7 +74,7 @@ namespace Paketstation
             int res = 0;
             for (int i = 0; i < Faecher.Length; i++)
             {
-                if (Faecher[i].Paket.Empfaenger == kundenname)
+                if (Faecher[i].Paket != null && Faecher[i].Paket.Empfaenger == kundenname)
                 {
                     res++;
                 }
@@ -82,7 +86,7 @@ namespace Paketstation
         {
             for (int i = 0; i < Faecher.Length; i++)
             {
-                if (Faecher[i].Paket.Paketnummer.ToString() == paketnummer.ToString())
+                if (Faecher[i].Paket != null && Faecher[i].Paket.Paketnummer.ToString() == paketnummer.ToString())
                 {
                     return i;
                 }
