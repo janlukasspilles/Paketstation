@@ -80,12 +80,26 @@ namespace Paketstation
         private void KundeLiefertPaketEin(Kunde k)
         {
             k.Paket1 = IO.PaketEinliefern(k.Name);
-            Station.PaketAnnehmen(k.PaketEinliefern());
+            try
+            {
+                Station.PaketAnnehmen(k.PaketEinliefern());
+            }
+            catch (KeinFreiesSchliessfachException)
+            {
+                IO.KeinFreiesSchliessfach();
+            }
         }
 
         private void KundeHoltPaketAb(Kunde k)
         {
-            k.PaketAbholen(Station.PaketAusgeben(IO.AusgabePaket()));
+            try
+            {
+                k.PaketAbholen(Station.PaketAusgeben(IO.AusgabePaket()));
+            }
+            catch (KundeKannNichtsMehrTragenException)
+            {
+                IO.KundeHatSchonEinPaket();
+            }
         }
         private void KundeListeEigenePaket(Kunde k)
         {
@@ -97,7 +111,6 @@ namespace Paketstation
                 IO.PaketOeffnen(k.PaketOeffnen());
             else
                 IO.MeldungKeinPaket();
-            
         }
         #endregion
     }

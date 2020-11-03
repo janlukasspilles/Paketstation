@@ -54,7 +54,7 @@ namespace Paketstation.Model
         }
         public void PaketVorbereiten(string inhalt, string empfaenger)
         {
-            if(Paket1 == null)
+            if (Paket1 == null)
             {
                 Paket1 = new Paket(empfaenger, Name, inhalt);
             }

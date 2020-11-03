@@ -16,7 +16,7 @@ namespace Paketstation
         private string _absender;
         #endregion
         #region Properties
-        public int Paketnummer { get => _paketnummer; set => _paketnummer=value; }
+        public int Paketnummer { get => _paketnummer; set => _paketnummer = value; }
         public string Inhalt { get => _inhalt; set => _inhalt = value; }
         public string Groesse { get => _groesse; set => _groesse = value; }
         public string Empfaenger { get => _empfaenger; set => _empfaenger = value; }
@@ -25,7 +25,7 @@ namespace Paketstation
         #region Constructors
         public Paket()
         {
-            
+
         }
 
         public Paket(string empfaenger, string absender)
@@ -39,7 +39,7 @@ namespace Paketstation
             Empfaenger = empfaenger;
             Absender = absender;
             Inhalt = inhalt;
-        }        
+        }
         #endregion
         #region Methods
         #endregion

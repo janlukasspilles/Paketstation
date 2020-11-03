@@ -33,6 +33,20 @@ namespace Paketstation.View
             return new Paket(empfaenger, name, inhalt);
         }
 
+        public void KeinFreiesSchliessfach()
+        {
+            Console.Clear();
+            Console.WriteLine("Es ist kein freies Schliessfach verfügbar.");
+            Console.ReadKey(true);
+        }
+
+        public void KundeHatSchonEinPaket()
+        {
+            Console.Clear();
+            Console.WriteLine("Es kann nicht mehr als ein Paket getragen werden. Öffnen Sie Ihr aktuelles bitte zunächst!");
+            Console.ReadKey(true);
+        }
+
         public void PaketeListen(int[] paketnummern)
         {
             Console.Clear();
@@ -42,15 +56,16 @@ namespace Paketstation.View
             }
             else
             {
+                Console.WriteLine("Folgende Paketnummern gehören zu Paketen, die an Sie adressiert sind:");
                 for (int zaehler = 0; zaehler < paketnummern.Length; zaehler++)
                 {
-                    Console.WriteLine(paketnummern[zaehler].ToString());
+                    Console.WriteLine($"Paket {zaehler}: Paketnummer: {paketnummern[zaehler]}");
                 }
             }
             Console.ReadKey(true);
         }
 
-        public void PaketOeffnen(Paket p) 
+        public void PaketOeffnen(Paket p)
         {
             Console.Clear();
             Console.WriteLine("Absender: " + p.Absender);
@@ -68,7 +83,7 @@ namespace Paketstation.View
         public int AusgabePaket()
         {
             Console.Clear();
-            Console.WriteLine("Bitte geben Sie die Id des auszugebenen Pakets an.");            
+            Console.WriteLine("Bitte geben Sie die Id des auszugebenen Pakets an.");
             return Convert.ToInt32(Console.ReadLine());
         }
 
@@ -130,7 +145,7 @@ namespace Paketstation.View
             return currentItem;
         }
 
-        public void WriteWithColor(ConsoleColor color, string format, params string[] text)
+        private void WriteWithColor(ConsoleColor color, string format, params string[] text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
@@ -138,7 +153,7 @@ namespace Paketstation.View
             Console.ForegroundColor = oldColor;
         }
 
-        public void WriteWithColor(ConsoleColor color, params string[] text)
+        private void WriteWithColor(ConsoleColor color, params string[] text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;

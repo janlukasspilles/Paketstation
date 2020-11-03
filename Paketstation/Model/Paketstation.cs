@@ -43,7 +43,7 @@ namespace Paketstation
             }
             else
             {
-                //Exception?
+                throw new KeinFreiesSchliessfachException("Alle Schliessfächer sind belegt!");
             }
         }
 
