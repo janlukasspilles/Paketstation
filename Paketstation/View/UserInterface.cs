@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Paketstation.View
+namespace Paketstation
 {
     public class UserInterface
     {
@@ -22,69 +22,42 @@ namespace Paketstation.View
         }
         #region Methods
         #endregion
-        public Paket PaketEinliefern(string name)
+        public void MeldungKeinFreiesPaketfach()
         {
-            Console.Clear();
-            Console.WriteLine("Was wollen Sie versenden?");
-            string inhalt = Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine("Geben Sie einen Empfänger für Ihr Paket an.");
-            string empfaenger = Console.ReadLine();
-            return new Paket(empfaenger, name, inhalt);
-        }
-
-        public void KeinFreiesSchliessfach()
-        {
-            Console.Clear();
-            Console.WriteLine("Es ist kein freies Schliessfach verfügbar.");
-            Console.ReadKey(true);
-        }
-
-        public void KundeHatSchonEinPaket()
-        {
-            Console.Clear();
-            Console.WriteLine("Es kann nicht mehr als ein Paket getragen werden. Öffnen Sie Ihr aktuelles bitte zunächst!");
-            Console.ReadKey(true);
+            Console.WriteLine("Es steht derzeit kein freies Paketfach zur Verfügung. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut.");
         }
 
         public void PaketeListen(int[] paketnummern)
         {
             Console.Clear();
-            if (paketnummern.Length == 0)
+            Console.WriteLine($"Es sind {paketnummern.Length} Pakete für Sie hinterlegt:");
+            Console.WriteLine();
+            Console.WriteLine("Nr        Paketnummer");
+
+            for (int i = 0; i < paketnummern.Length; i++)
             {
-                Console.WriteLine("Es befinden sich keine Pakete für Sie in der Station.");
+                Console.WriteLine($"({i + 1})       {paketnummern[i]}");
             }
-            else
-            {
-                Console.WriteLine("Folgende Paketnummern gehören zu Paketen, die an Sie adressiert sind:");
-                for (int zaehler = 0; zaehler < paketnummern.Length; zaehler++)
-                {
-                    Console.WriteLine($"Paket {zaehler}: Paketnummer: {paketnummern[zaehler]}");
-                }
-            }
+
             Console.ReadKey(true);
         }
 
-        public void PaketOeffnen(Paket p)
+        public Kunde NeuerKunde()
         {
-            Console.Clear();
-            Console.WriteLine("Absender: " + p.Absender);
-            Console.WriteLine("Inhalt: " + p.Inhalt);
-            Console.ReadKey(true);
+            Kunde result = new Kunde();
+            Console.WriteLine("Bitte geben Sie Ihren Namen an: ");
+            result.Name = Console.ReadLine();
+            Console.WriteLine("Bitte geben Sie Ihre Adresse an: ");
+            result.Adresse = Console.ReadLine();
+            Console.WriteLine($"Vielen Dank für Ihre Anmeldung, Ihre Kundennummer lautet: {result.Kundennummer}");
+            return result;
         }
 
-        public void MeldungKeinPaket()
+        public string Kundenauthentifizierung()
         {
             Console.Clear();
-            Console.WriteLine("Sie besitzen kein Paket zum Öffnen!");
-            Console.ReadKey(true);
-        }
-
-        public int AusgabePaket()
-        {
-            Console.Clear();
-            Console.WriteLine("Bitte geben Sie die Id des auszugebenen Pakets an.");
-            return Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Bitte authentifizieren Sie sich mit Ihrer Kundennummer");
+            return Console.ReadLine();
         }
 
         public void Splashinfo()

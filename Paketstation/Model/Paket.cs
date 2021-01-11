@@ -30,8 +30,10 @@ namespace Paketstation
 
         public Paket(string empfaenger, string absender)
         {
+            Random r = new Random();
             Empfaenger = empfaenger;
             Absender = absender;
+            Paketnummer = r.Next(0, 100);
         }
 
         public Paket(string empfaenger, string absender, string inhalt)
@@ -39,6 +41,7 @@ namespace Paketstation
             Empfaenger = empfaenger;
             Absender = absender;
             Inhalt = inhalt;
+            Paketnummer = new Random().Next();
         }
         #endregion
         #region Methods

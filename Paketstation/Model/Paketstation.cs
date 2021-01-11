@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Paketstation.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,67 +10,75 @@ namespace Paketstation
     public class Paketstation
     {
         #region Attributes
-        private Schliessfach[] _faecher;
-        private Terminal _userInterface;
+        private Paketfach[] _faecher;
+        private UserInterface _terminal;
         private string _standort;
         private Guid _id;
-        private int _globalIdCounter;
         #endregion
         #region Properties
-        public Schliessfach[] Faecher { get => _faecher; set => _faecher = value; }
-        public Terminal UserInterface { get => _userInterface; set => _userInterface = value; }
+        public Paketfach[] Faecher { get => _faecher; set => _faecher = value; }
+        public UserInterface Terminal { get => _terminal; set => _terminal = value; }
         public string Standort { get => _standort; set => _standort = value; }
         public Guid Id { get => _id; set => _id = value; }
         #endregion
         #region Constructors
         public Paketstation()
         {
-            Faecher = new Schliessfach[9];
+            Terminal = new UserInterface();
+            Faecher = new Paketfach[9];
             for (int zaehler = 0; zaehler < Faecher.Length; zaehler++)
             {
-                Faecher[zaehler] = new Schliessfach();
+                Faecher[zaehler] = new Paketfach();
             }
-            _globalIdCounter = 0;
         }
         #endregion
         #region Methods
+        public int ShowInitMenu()
+        {
+            return Terminal.SelectableMenu("Paket abgeben;Paket abholen;Pakete listen;Beenden", "Willkommen!\r\nBitte wählen Sie eine Aktion aus!");
+        }
+
+        public Kunde AnmeldungNeuerKunde()
+        {
+            return Terminal.NeuerKunde();
+        }
+
+        public string KundeAuthentifizieren()
+        {            
+            return Terminal.Kundenauthentifizierung();
+        }
         public void PaketAnnehmen(Paket paket)
         {
             int pos = GetFreiesSchliessfach();
             if (pos != -1)
             {
-                paket.Paketnummer = _globalIdCounter++;
-                Faecher[pos].Paket = paket;
+                Faecher[pos].Oeffnen();
+                Faecher[pos].PaketEinfuegen(paket);
+                Faecher[pos].Schliessen();
             }
             else
             {
-                throw new KeinFreiesSchliessfachException("Alle Schliessfächer sind belegt!");
+                Terminal.MeldungKeinFreiesPaketfach();
             }
         }
 
         public Paket PaketAusgeben(int paketnummer)
         {
-            int pos = PaketFinden(paketnummer);
-            if (pos != -1)
-            {
-                return Faecher[pos].PaketAusgeben();
-            }
             return null;
         }
 
-        public int[] PaketeListen(string kundenname)
+        public void PaketeListen(string kundenname)
         {
             int[] res = new int[AnzahlPaketeFuerKunden(kundenname)];
-            int zaehler = 0;
+            int pos = 0;
             for (int i = 0; i < Faecher.Length; i++)
             {
                 if (Faecher[i].Paket != null && Faecher[i].Paket.Empfaenger == kundenname)
                 {
-                    //Geht das???
-                    res[zaehler++] = Faecher[i].Paket.Paketnummer;
+                    res[pos++] = Faecher[i].Paket.Paketnummer;
                 }
             }
-            return res;
+            Terminal.PaketeListen(res);
         }
 
         private int AnzahlPaketeFuerKunden(string kundenname)

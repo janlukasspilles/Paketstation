@@ -12,30 +12,28 @@ namespace Paketstation.Model
         private Paket _paket1;
         private string _name;
         private string _adresse;
-        private Guid _kundennummer;
+        private int _kundennummer;
         #endregion
         #region Properties
         public Paket Paket1 { get => _paket1; set => _paket1 = value; }
         public string Name { get => _name; set => _name = value; }
         public string Adresse { get => _adresse; set => _adresse = value; }
-        public Guid Kundennummer { get => _kundennummer; set => _kundennummer = value; }
+        public int Kundennummer { get => _kundennummer; set => _kundennummer = value; }
         #endregion
         #region Constructors
         public Kunde()
         {
-            Kundennummer = Guid.NewGuid();
         }
-        public Kunde(string name, string adresse)
+        public Kunde(string name, string adresse, int kundennummer)
         {
             Name = name;
             Adresse = adresse;
-            Kundennummer = Guid.NewGuid();
+            Kundennummer = kundennummer;
         }
         public Kunde(Paket p, string name, string adresse)
         {
             Name = name;
             Adresse = adresse;
-            Kundennummer = Guid.NewGuid();
             Paket1 = p;
         }
         #endregion
@@ -49,21 +47,8 @@ namespace Paketstation.Model
         public void PaketAbholen(Paket p)
         {
             if (Paket1 != null)
-                throw new KundeKannNichtsMehrTragenException();
+                throw new Exception();
             Paket1 = p;
-        }
-        public void PaketVorbereiten(string inhalt, string empfaenger)
-        {
-            if (Paket1 == null)
-            {
-                Paket1 = new Paket(empfaenger, Name, inhalt);
-            }
-        }
-        public Paket PaketOeffnen()
-        {
-            Paket res = Paket1;
-            Paket1 = null;
-            return res;
         }
         #endregion
     }

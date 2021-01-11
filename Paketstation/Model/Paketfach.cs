@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Paketstation
 {
-    public class Schliessfach
+    public class Paketfach
     {
         #region Attributes
         private Paket _paket;
@@ -17,7 +17,7 @@ namespace Paketstation
         public bool Status { get => _status; set => _status = value; }
         #endregion
         #region Constructors
-        public Schliessfach()
+        public Paketfach()
         {
             Paket = null;
         }
@@ -28,6 +28,22 @@ namespace Paketstation
             Paket p = Paket;
             Paket = null;
             return p;
+        }
+
+        //Eigentlich nur der Setter wtf?
+        public void PaketEinfuegen(Paket paket)
+        {
+            Paket = paket;
+        }
+
+        public void Oeffnen()
+        {
+            //brr brr öffnen
+        }
+
+        public void Schliessen()
+        {
+            //brr brr schliessen
         }
         #endregion
     }
