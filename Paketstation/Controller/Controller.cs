@@ -28,9 +28,10 @@ namespace Paketstation
         public void TestDaten()
         {
             Kunden.Add(new Kunde("Testkunde", "Steinschönauer Str. 6", 5));
-            Station.Faecher[3].Paket = new Paket("Testkunde", "kunde1");
-            Station.Faecher[4].Paket = new Paket("Testkunde", "kunde1");
-            Station.Faecher[5].Paket = new Paket("Testkunde", "kunde1");
+            Random r = new Random();
+            Station.Faecher[3].Paket = new Paket("Testkunde", "kunde1", r.Next(0, 100));
+            Station.Faecher[4].Paket = new Paket("Testkunde", "kunde1", r.Next(0, 100));
+            Station.Faecher[5].Paket = new Paket("Testkunde", "kunde1", r.Next(0, 100));
         }
         public void run()
         {
@@ -70,16 +71,16 @@ namespace Paketstation
                 tmp = Station.AnmeldungNeuerKunde();
                 Kunden.Add(tmp);
             }
-            Station.PaketAnnehmen(tmp.Paket1);
+            Station.PaketAnnehmen(tmp.PaketEinliefern());
         }
 
         private void KundeHoltPaketAb()
         {
             string kundennummer = Station.KundeAuthentifizieren();
-            Kunde tmp = Kunden.Find(x => x.Kundennummer == Convert.ToInt32(kundennummer));
-            if (tmp != null)
+            int kunde = Kunden.IndexOf(Kunden.Find(x => x.Kundennummer == Convert.ToInt32(kundennummer)));
+            if (kunde != -1)
             {
-
+                Kunden[kunde].PaketAbholen(Station.PaketAusgeben(Station.AbfragePaketnummer()));
             }
         }
         private void KundeListeEigenePaket()

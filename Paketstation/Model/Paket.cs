@@ -28,12 +28,11 @@ namespace Paketstation
 
         }
 
-        public Paket(string empfaenger, string absender)
+        public Paket(string empfaenger, string absender, int paketnummer)
         {
-            Random r = new Random();
             Empfaenger = empfaenger;
             Absender = absender;
-            Paketnummer = r.Next(0, 100);
+            Paketnummer = paketnummer;
         }
 
         public Paket(string empfaenger, string absender, string inhalt)

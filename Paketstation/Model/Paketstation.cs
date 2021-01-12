@@ -44,7 +44,7 @@ namespace Paketstation
         }
 
         public string KundeAuthentifizieren()
-        {            
+        {
             return Terminal.Kundenauthentifizierung();
         }
         public void PaketAnnehmen(Paket paket)
@@ -62,9 +62,21 @@ namespace Paketstation
             }
         }
 
+        public int AbfragePaketnummer()
+        {
+            return Terminal.AbfragePaketnummer();
+        }
+
         public Paket PaketAusgeben(int paketnummer)
         {
-            return null;
+            if(PaketFinden(paketnummer) != -1)
+            {
+                return Faecher[PaketFinden(paketnummer)].PaketAusgeben();
+            }
+            else
+            {
+                throw new Exception("Paket nicht gefunden!");
+            }            
         }
 
         public void PaketeListen(string kundenname)

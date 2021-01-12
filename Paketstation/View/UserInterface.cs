@@ -42,6 +42,13 @@ namespace Paketstation
             Console.ReadKey(true);
         }
 
+        public int AbfragePaketnummer()
+        {
+            Console.Clear();
+            Console.WriteLine("Bitte geben Sie eine Paketnummer an:");
+            return Convert.ToInt32(Console.ReadLine());
+        }
+
         public Kunde NeuerKunde()
         {
             Kunde result = new Kunde();
