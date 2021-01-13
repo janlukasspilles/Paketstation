@@ -40,15 +40,22 @@ namespace Paketstation.Model
         #region Methods
         public Paket PaketEinliefern()
         {
+            if (Paket1 == null)
+                throw new Exception("Sie besitzen kein Paket zum abgeben!");
+
             Paket res = Paket1;
             Paket1 = null;
             return res;
         }
         public void PaketAbholen(Paket p)
         {
-            if (Paket1 != null)
-                throw new Exception();
-            Paket1 = p;
+            if (p != null)
+            {
+                if (Paket1 != null)
+                    throw new Exception("Sie können nur ein Paket gleichzeitig besitzen!");
+
+                Paket1 = p;
+            }
         }
         #endregion
     }

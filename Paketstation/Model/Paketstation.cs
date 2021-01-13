@@ -69,14 +69,15 @@ namespace Paketstation
 
         public Paket PaketAusgeben(int paketnummer)
         {
-            if(PaketFinden(paketnummer) != -1)
+            try
             {
                 return Faecher[PaketFinden(paketnummer)].PaketAusgeben();
             }
-            else
+            catch (Exception e)
             {
-                throw new Exception("Paket nicht gefunden!");
-            }            
+                Terminal.ShowExceptionText(e.Message);
+            }
+            return null;
         }
 
         public void PaketeListen(string kundenname)
@@ -115,7 +116,7 @@ namespace Paketstation
                     return i;
                 }
             }
-            return -1;
+            throw new Exception($"Es gibt kein Paket mit der Paketnummer: {paketnummer}");
         }
 
         private int GetFreiesSchliessfach()

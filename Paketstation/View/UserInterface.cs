@@ -82,6 +82,13 @@ namespace Paketstation
             Console.WriteLine("Drücken Sie eine beliebige Taste, um fortzufahren.");
         }
 
+        public void ShowExceptionText(string message)
+        {
+            Console.Clear();
+            Console.WriteLine(message);
+            Console.ReadKey(true);
+        }
+
         public int SelectableMenu(string menuPoints, string headline)
         {
             string[] menu = menuPoints.Split(';');
