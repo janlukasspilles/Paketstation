@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//Autor:        Jan-Lukas Spilles
+//Klasse:       IA119
+//Datei:        Kunde.cs
+//Datum:        19.11.2020
+//Beschreibung: Repräsentiert einen Kunden
+using System;
 
 namespace Paketstation.Model
 {

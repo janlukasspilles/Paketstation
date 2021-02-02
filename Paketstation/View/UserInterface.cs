@@ -1,30 +1,46 @@
-﻿using Paketstation.Model;
+﻿//Autor:        Jan-Lukas Spilles
+//Klasse:       IA119
+//Datei:        UserInterface.cs
+//Datum:        19.11.2020
+//Beschreibung: Kümmert sich um Userinteraktionen
+
+using Paketstation.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Paketstation
 {
     public class UserInterface
     {
         #region Attributes
+        private string _text;
         #endregion
         #region Properties
+        public string Text { get => _text; set => _text = value; }
         #endregion
-        #region Constructors
-        #endregion
+        #region Constructors       
         public UserInterface()
         {
-            Splashinfo();
+
         }
-        #region Methods
-        #endregion
-        public void MeldungKeinFreiesPaketfach()
+        public UserInterface(bool splashscreen)
         {
-            Console.WriteLine("Es steht derzeit kein freies Paketfach zur Verfügung. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut.");
+            if (splashscreen)
+            {
+                Splashinfo();
+            }
+            else
+            {
+                //Nichts
+            }
+        }
+        #endregion
+        #region Methods
+        public void TextAusgeben()
+        {
+            Console.Clear();
+            Console.WriteLine(Text);
+            Console.ReadKey(true);
         }
 
         public void PaketeListen(int[] paketnummern)
@@ -49,17 +65,6 @@ namespace Paketstation
             return Convert.ToInt32(Console.ReadLine());
         }
 
-        public Kunde NeuerKunde()
-        {
-            Kunde result = new Kunde();
-            Console.WriteLine("Bitte geben Sie Ihren Namen an: ");
-            result.Name = Console.ReadLine();
-            Console.WriteLine("Bitte geben Sie Ihre Adresse an: ");
-            result.Adresse = Console.ReadLine();
-            Console.WriteLine($"Vielen Dank für Ihre Anmeldung, Ihre Kundennummer lautet: {result.Kundennummer}");
-            return result;
-        }
-
         public string Kundenauthentifizierung()
         {
             Console.Clear();
@@ -67,7 +72,7 @@ namespace Paketstation
             return Console.ReadLine();
         }
 
-        public void Splashinfo()
+        private void Splashinfo()
         {
             string[] titles = { "Projektname:", "Version:", "Datum:", "Autor:", "Klasse:" };
             string[] information = { "Paketstation", "1.0", "26.10.2020", "Jan-Lukas Spilles", "IA119" };
@@ -147,5 +152,7 @@ namespace Paketstation
             Console.WriteLine(text);
             Console.ForegroundColor = oldColor;
         }
+        #endregion
+
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿//Autor:        Jan-Lukas Spilles
+//Klasse:       IA119
+//Datei:        Paketfach.cs
+//Datum:        19.11.2020
+//Beschreibung: Repräsentiert ein Paketfach
 namespace Paketstation
 {
     public class Paketfach
@@ -21,6 +20,10 @@ namespace Paketstation
         {
             Paket = null;
         }
+        public Paketfach(Paket p)
+        {
+            Paket = p;
+        }
         #endregion
         #region Methods
         public Paket PaketAusgeben()
@@ -30,7 +33,6 @@ namespace Paketstation
             return p;
         }
 
-        //Eigentlich nur der Setter wtf?
         public void PaketEinfuegen(Paket paket)
         {
             Paket = paket;
@@ -38,12 +40,12 @@ namespace Paketstation
 
         public void Oeffnen()
         {
-            //brr brr öffnen
+            Status = true;
         }
 
         public void Schliessen()
         {
-            //brr brr schliessen
+            Status = false;
         }
         #endregion
     }

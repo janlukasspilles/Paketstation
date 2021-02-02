@@ -1,7 +1,11 @@
-﻿using Paketstation.Model;
+﻿//Autor:        Jan-Lukas Spilles
+//Klasse:       IA119
+//Datei:        Controller.cs
+//Datum:        19.11.2020
+//Beschreibung: Kümmert sich um den Programmablauf
+using Paketstation.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Paketstation
 {
@@ -21,13 +25,26 @@ namespace Paketstation
         {
             Station = new Paketstation();
             Kunden = new List<Kunde>();
-            TestDaten();
+        }
+        public Controller(bool withTestdata)
+        {
+            Station = new Paketstation();
+            Kunden = new List<Kunde>();
+            if (withTestdata)
+            {
+                TestDaten();
+            }
+            else
+            {
+                //Nichts
+            }            
         }
         #endregion
         #region Methods
-        public void TestDaten()
+        private void TestDaten()
         {
             Kunden.Add(new Kunde("Testkunde", "Steinschönauer Str. 6", 5));
+            Kunden.Add(new Kunde("Testkunde2", "Gablonzer Str. 13", 1));
             Random r = new Random();
             Station.Faecher[3].Paket = new Paket("Testkunde", "kunde1", r.Next(0, 100));
             Station.Faecher[4].Paket = new Paket("Testkunde", "kunde1", r.Next(0, 100));
@@ -66,12 +83,14 @@ namespace Paketstation
         {
             string kundennummer = Station.KundeAuthentifizieren();
             Kunde tmp = Kunden.Find(x => x.Kundennummer == Convert.ToInt32(kundennummer));
-            if (tmp == null)
+            if (tmp != null)
             {
-                tmp = Station.AnmeldungNeuerKunde();
-                Kunden.Add(tmp);
+                Station.PaketAnnehmen(tmp.PaketEinliefern());
             }
-            Station.PaketAnnehmen(tmp.PaketEinliefern());
+            else
+            {
+                //Nichts
+            }
         }
 
         private void KundeHoltPaketAb()
@@ -82,6 +101,10 @@ namespace Paketstation
             {
                 Kunden[kunde].PaketAbholen(Station.PaketAusgeben(Station.AbfragePaketnummer()));
             }
+            else
+            {
+                //Nichts
+            }
         }
         private void KundeListeEigenePaket()
         {
@@ -90,6 +113,10 @@ namespace Paketstation
             if (tmp != null)
             {
                 Station.PaketeListen(tmp.Name);
+            }
+            else
+            {
+                //Nichts
             }
         }
         #endregion
