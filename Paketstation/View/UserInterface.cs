@@ -72,6 +72,13 @@ namespace Paketstation
             return Console.ReadLine();
         }
 
+        public string PaketAddressieren()
+        {
+            Console.Clear();
+            Console.WriteLine("Bitte geben Sie die Namen des Empfängers an!");
+            return Console.ReadLine();
+        }
+
         private void Splashinfo()
         {
             string[] titles = { "Projektname:", "Version:", "Datum:", "Autor:", "Klasse:" };

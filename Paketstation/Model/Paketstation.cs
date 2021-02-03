@@ -23,7 +23,7 @@ namespace Paketstation
         #region Constructors
         public Paketstation()
         {
-            Terminal = new UserInterface();
+            Terminal = new UserInterface(true);
             Faecher = new Paketfach[9];
             for (int zaehler = 0; zaehler < Faecher.Length; zaehler++)
             {
@@ -33,7 +33,7 @@ namespace Paketstation
 
         public Paketstation(string standort)
         {
-            Terminal = new UserInterface();
+            Terminal = new UserInterface(true);
             Faecher = new Paketfach[9];
             for (int zaehler = 0; zaehler < Faecher.Length; zaehler++)
             {
@@ -54,9 +54,12 @@ namespace Paketstation
         }
         public void PaketAnnehmen(Paket paket)
         {
+            
             int pos = GetFreiesSchliessfach();
             if (pos != -1)
             {
+                string s = Terminal.PaketAddressieren();
+                paket.Empfaenger = s;
                 Faecher[pos].Oeffnen();
                 Terminal.Text = "Schließfach öffnet sich.";
                 Terminal.TextAusgeben();
